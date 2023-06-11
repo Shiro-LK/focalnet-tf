@@ -2,7 +2,11 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+*.h5 
+*.pth 
+tests/ckpt
+focalnet/tmp 
+focalnet/__pycache__/
 # C extensions
 *.so
 
