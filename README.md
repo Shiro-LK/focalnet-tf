@@ -13,7 +13,7 @@ Focal Modulation  brings several merits:
 
 This repository aims to reproduce the results of the paper using TensorFlow 2.4.1 and provide a modular and easy-to-use implementation of focal modulation networks. The code is based on the official PyTorch implementation of the paper, which can be found on the offical repository [here](https://github.com/microsoft/FocalNet) . Only the classification part is implemented. Pretrained checkpoints have been converted on Tensorflow.
 
-!(figures/modulator.JPG)
+![](figures/modulator.JPG)
 
 # Installation
 
