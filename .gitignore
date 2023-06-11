@@ -9,7 +9,7 @@ focalnet/tmp
 focalnet/__pycache__/
 # C extensions
 *.so
-
+CREATE_PKG.MD
 # Distribution / packaging
 .Python
 build/
