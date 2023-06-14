@@ -10,7 +10,7 @@ def readme():
 
 setup(
     name='focalnet-tf',
-    version='0.0.1',    
+    version='0.0.2',    
     description='Re-implementation of FocalNet for tensorflow 2.X',
     author='Shiro-LK',
     author_email='shirosaki94@gmail.com',
