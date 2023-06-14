@@ -25,7 +25,7 @@ imagenet1k = imagenet_1k()
 imagenet22k = imagenet_22k()
 
 
-def load_focalnet(model_name, input_shape=(224, 224, 3), pretrained=False, return_model=True, num_classes=None, **kwargs):
+def load_focalnet(model_name, input_shape=(224, 224, 3), pretrained=False, return_model=False, num_classes=None, **kwargs):
     #print(kwargs)
     focal_levels=[2,2,2,2]
     focal_windows = [3, 3, 3, 3]

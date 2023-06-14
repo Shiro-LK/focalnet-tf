@@ -424,7 +424,10 @@ class FocalNet(tf.keras.Model):#
                 act_head=None,
                 **kwargs):
         super().__init__(name=name)
-
+        if type(img_size) == int:
+            img_size = (img_size, img_size)
+        
+        assert type(img_size) == tuple
         self.num_layers = len(depths)
         embed_dim = [embed_dim * (2 ** i) for i in range(self.num_layers)]
 
@@ -483,7 +486,7 @@ class FocalNet(tf.keras.Model):#
         self.avgpool = GlobalAveragePooling1D() if pooling == "avg" else GlobalMaxPooling1D() if pooling == "max" else None
         self.head = Dense(num_classes, name="head", activation=act_head, dtype=tf.float32) if num_classes > 0 and include_top else  Identity()
         self.return_modulator = False
-        self.build((1, img_size, img_size, 3))
+        self.build((1, img_size[0], img_size[1], 3))
 
     def set_return_modulator(self, do_return=True):
         self.return_modulator = do_return 
