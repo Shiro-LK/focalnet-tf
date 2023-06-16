@@ -6,7 +6,6 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from tensorflow.keras import mixed_precision
 #os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-sys.path.append("G:/Projet-DL/Github/focalnet-tf")
 from focalnet import load_focalnet, IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD, imagenet1k, imagenet22k
 from tensorflow.keras import mixed_precision
 mixed_precision.set_global_policy('mixed_float16')
