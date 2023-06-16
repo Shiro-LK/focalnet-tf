@@ -15,10 +15,12 @@ def drop_path(x, drop_prob: float = 0., training: bool = False, scale_by_keep: b
         return x
     keep_prob = 1 - drop_prob
     shape = (x.shape[0],) + (1,) * (len(tf.shape(x)) - 1)  # work with diff dim tensors, not just 2D ConvNets
-    random_tensor =  tfp.distributions.Bernoulli(keep_prob).sample(shape)
+    random_tensor =  tf.cast(tfp.distributions.Bernoulli(keep_prob).sample(shape), dtype=x.dtype)
+    
     if keep_prob > 0.0 and scale_by_keep:
         random_tensor = random_tensor / keep_prob
-    return x * random_tensor
+    
+    return x * tf.cast(random_tensor, dtype=x.dtype)
 
 
 class DropPath(tf.keras.layers.Layer):
