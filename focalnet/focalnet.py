@@ -64,7 +64,6 @@ class PatchEmbed(tf.keras.layers.Layer):
             self.pad_proj = ZeroPadding2D(padding=padding)
             self.proj = Conv2D(filters=embed_dim, kernel_size=kernel_size, strides=stride, padding='valid', name="proj_conv" )
         else:
-            #print(embed_dim, patch_size)
             self.pad_proj = Identity()
             self.proj = Conv2D(filters=embed_dim, kernel_size=patch_size, strides=patch_size, name="proj_conv" )
         
@@ -227,14 +226,14 @@ class FocalNetBlock(tf.keras.layers.Layer):
         self.focal_level = focal_level
         self.use_postln = use_postln
 
-        self.norm1 = norm_layer(epsilon=1e-5, name="norm1")
+        self.norm1 = norm_layer(epsilon=1e-5)
         self.modulation = FocalModulation(
             dim, proj_drop=drop, focal_window=focal_window, focal_level=self.focal_level, 
             use_postln_in_modulation=use_postln_in_modulation, normalize_modulator=normalize_modulator
         )
 
         self.drop_path = DropPath(drop_path) if drop_path > 0. else Identity()
-        self.norm2 = norm_layer(epsilon=1e-5, name="norm2")
+        self.norm2 = norm_layer(epsilon=1e-5)
         mlp_hidden_dim = int(dim * mlp_ratio)
         self.mlp = Mlp(in_features=dim, hidden_features=mlp_hidden_dim, act_layer=act_layer, drop=drop)
 
@@ -358,7 +357,6 @@ class BasicLayer(tf.keras.layers.Layer):
                 modulators.append(modulator)
             else:
                 x = blk(x, H, W, return_modulator=return_modulator)
-        #print(x.shape, H, W)
         if self.downsample is not None:
             x = tf.reshape(x, [-1,  H, W, x.shape[-1]])
             x, Ho, Wo = self.downsample(x)
@@ -406,7 +404,7 @@ class FocalNet(tf.keras.Model):#
                 depths=[2, 2, 6, 2], 
                 mlp_ratio=4., 
                 drop_rate=0., 
-                drop_path_rate=0.1,
+                drop_path_rate=0.2,
                 norm_layer=LayerNormalization, 
                 patch_norm=True,
                 use_checkpoint=False,                 
@@ -426,7 +424,6 @@ class FocalNet(tf.keras.Model):#
         super().__init__(name=name)
         if type(img_size) == int:
             img_size = (img_size, img_size)
-        
         assert type(img_size) == tuple
         self.num_layers = len(depths)
         embed_dim = [embed_dim * (2 ** i) for i in range(self.num_layers)]
@@ -453,9 +450,7 @@ class FocalNet(tf.keras.Model):#
         self.pos_drop = Dropout(drop_rate)
 
         # stochastic depth
-        #print(0, drop_path_rate, sum(depths))
         dpr = [x for x in tf.linspace(0., drop_path_rate, sum(depths)).numpy()]  # stochastic depth decay rule
- 
         # build layers
         self.layers_ = []
         for i_layer in range(self.num_layers):
@@ -500,7 +495,6 @@ class FocalNet(tf.keras.Model):#
             else:
                 x, H, W = layer(x, H, W, return_modulator=False)
         x = self.norm(x)  # B L C
-        #print(H, W)
         if return_modulator:
             return x, modulators
         return x
@@ -512,7 +506,6 @@ class FocalNet(tf.keras.Model):#
             x = self.extract_features(x, return_modulator=self.return_modulator)
         if self.avgpool is not None:
             x = self.avgpool(x) 
-        #print(x[0,:10])
         x = self.head(x)
         if self.return_modulator:
             return x, modulators

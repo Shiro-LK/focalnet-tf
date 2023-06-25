@@ -122,6 +122,27 @@ def load_focalnet(model_name, input_shape=(224, 224, 3), pretrained=False, retur
     else: 
         raise("model name not found")
 
+
+    if "use_layerscale" in kwargs:
+        use_layerscale = kwargs["use_layerscale"]
+        del kwargs["use_layerscale"]
+
+    if "use_conv_embed" in kwargs: 
+        use_conv_embed = kwargs["use_conv_embed"]
+        del kwargs["use_conv_embed"]
+
+    if "use_postln" in kwargs:
+        use_postln = False 
+        del kwargs["use_postln"]
+
+    if "normalize_modulator" in kwargs:
+        normalize_modulator = kwargs["normalize_modulator"]
+        del kwargs["normalize_modulator"]
+
+    if "use_postln_in_modulation" in kwargs:
+        use_postln_in_modulation= kwargs["use_postln_in_modulation"]
+        del kwargs["use_postln_in_modulation"]
+        
     if num_classes is None and pretrained:
         num_classes = default_classes
     elif num_classes is None:

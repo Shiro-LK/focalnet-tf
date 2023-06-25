@@ -11,14 +11,14 @@ Focal Modulation  brings several merits:
 * **Easy to implement**: We can implement both context aggregation and interaction in a very simple and light-weight way. It does not need softmax, multiple attention heads, feature map rolling or unfolding, etc.
 
 <p align="center">
-<img src="figures/focalnet-model.png" width=80% height=80% 
+<img src="https://github.com/Shiro-LK/focalnet-tf/blob/main/figures/focalnet-model.png" width=80% height=80% 
 class="center">
 </p>
 
 This repository aims to reproduce the results of the paper using TensorFlow 2.4.1 and provide a modular and easy-to-use implementation of focal modulation networks. The code is based on the official PyTorch implementation of the paper, which can be found on the offical repository [here](https://github.com/microsoft/FocalNet) . Only the classification part is implemented. Pretrained checkpoints have been converted on Tensorflow.
 
 <p align="center">
-<img src="figures/modulator.JPG" width=80% height=80% 
+<img src="https://github.com/Shiro-LK/focalnet-tf/blob/main/figures/modulator.JPG" width=80% height=80% 
 class="center">
 </p>
 

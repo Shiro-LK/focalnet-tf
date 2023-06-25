@@ -1,5 +1,7 @@
 import numpy as np
 import sys
+sys.path.append("G:/Projet-DL/Github/focalnet-tf")
+
 import os 
 import cv2 
 from focalnet.focalnet_utils import load_focalnet
