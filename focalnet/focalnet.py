@@ -332,7 +332,7 @@ class BasicLayer(tf.keras.layers.Layer):
                 use_postln=use_postln, 
                 use_postln_in_modulation=use_postln_in_modulation, 
                 normalize_modulator=normalize_modulator, 
-                name =  f"focalnet_block_{i}"
+                name =  f"{name}/focalnet_block_{i}/"
             )
             for i in range(depth)] 
 

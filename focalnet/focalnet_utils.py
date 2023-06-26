@@ -69,7 +69,7 @@ def load_focalnet(model_name, input_shape=(224, 224, 3), pretrained=False, retur
         focal_windows = [5, 5, 5, 5]
         use_conv_embed = True
         use_postln = True
-        use_layerscale =  True # False #
+        use_layerscale =   True 
         default_classes = 21842
     elif model_name == "focalnet_large_fl4":
         depths = [2, 2, 18, 2]
